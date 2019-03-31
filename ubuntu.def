@@ -1,0 +1,23 @@
+Bootstrap: docker
+From: ubuntu:16.04
+
+%post
+    apt-get -y update
+    apt-get -y upgrade
+    apt-get install -y software-properties-common
+    apt-get install -y g++
+    apt-get install -y vim git wget cmake
+
+    echo >> /etc/apt/sources.list
+    echo "## ubuntuGIS" >> /etc/apt/sources.list
+    echo "## https://launchpad.net/~ubuntugis/+archive/ubuntu/ppa" >> /etc/apt/sources.list
+    echo "deb http://ppa.launchpad.net/ubuntugis/ppa/ubuntu xenial main" >> /etc/apt/sources.list
+    echo "deb-src http://ppa.launchpad.net/ubuntugis/ppa/ubuntu xenial main" >> /etc/apt/sources.list
+
+    add-apt-repository ppa:ubuntugis/ppa -y
+    apt-get update
+
+    apt-get install -y qgis qgis-python qgis-server python-qgis
+
+    mkdir -p /home /depot /scratch
+
