@@ -1,8 +1,7 @@
 #!/bin/bash
 
-filename=${1%.img}
+split -d -b 50M ${1} ${1}.part
 
-echo $filename
-
+scp ${1}.part* wu979@brown:/scratch/brown/wu979
 
 
