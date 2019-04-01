@@ -19,6 +19,8 @@ From: ubuntu:16.04
 
     apt-get install -y qgis qgis-server python-qgis
 
+    apt-get install -y apache2 libapache2-mod-fcgid
+
     mkdir -p /depot 
     mkdir -p /scratch
 
