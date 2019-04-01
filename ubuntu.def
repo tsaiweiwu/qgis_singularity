@@ -17,7 +17,8 @@ From: ubuntu:16.04
     add-apt-repository ppa:ubuntugis/ppa -y
     apt-get update
 
-    apt-get install -y qgis qgis-python qgis-server python-qgis
+    apt-get install -y qgis qgis-server python-qgis
 
-    mkdir -p /home /depot /scratch
+    mkdir -p /depot 
+    mkdir -p /scratch
 

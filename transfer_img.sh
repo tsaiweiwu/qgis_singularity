@@ -1,7 +1,19 @@
 #!/bin/bash
 
-split -d -b 50M ${1} ${1}.part
+build=qgis-ubuntu
 
-scp ${1}.part* wu979@brown:/scratch/brown/wu979
+imgfile=${build}.img
+tarfile=${build}.tar.gz
+
+
+
+## convert a sandbox into an image and tar
+sudo singularity build --writable ${build}.img ${build}.sandbox 
+
+tar -zcvf ${tarfile} ${imgfile}
+
+split -d -b 50M $tarfile tar_parts/${tarfile}.part
+
+scp tar_parts/${tarfile}.part* wu979@brown:/scratch/brown/wu979
 
 
