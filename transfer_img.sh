@@ -8,7 +8,7 @@ tarfile=${build}.tar.gz
 
 
 ## convert a sandbox into an image and tar
-sudo singularity build --writable ${build}.img ${build}.sandbox 
+sudo singularity build --writable ${imgfile} ${build}.sandbox 
 
 tar -zcvf ${tarfile} ${imgfile}
 
