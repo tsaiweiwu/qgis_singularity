@@ -6,7 +6,7 @@ build=qgis-ubuntu
 #singularity pull docker://kartoza/qgis-server:LTR
 
 ## create a sandbox
-sudo singularity build --sandbox ${build}.sandbox ./ubuntu.def
+sudo singularity build --sandbox ${build}.sandbox ./ubuntu.def |& tee build.log
 
 ## create a img directly
 #sudo singularity build --writable mcell.img $HOME/ubuntu.def

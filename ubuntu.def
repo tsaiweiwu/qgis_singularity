@@ -1,26 +1,44 @@
 Bootstrap: docker
 From: ubuntu:16.04
 
+
+%setup
+    echo ${PWD}
+
+    mkdir -p /depot 
+    mkdir -p /scratch
+
+%files
+    Cesium-1.56.1.zip
+
 %post
+
+
     apt-get -y update
     apt-get -y upgrade
     apt-get install -y software-properties-common
     apt-get install -y g++
     apt-get install -y vim git wget cmake
-
-    echo >> /etc/apt/sources.list
-    echo "## ubuntuGIS" >> /etc/apt/sources.list
-    echo "## https://launchpad.net/~ubuntugis/+archive/ubuntu/ppa" >> /etc/apt/sources.list
-    echo "deb http://ppa.launchpad.net/ubuntugis/ppa/ubuntu xenial main" >> /etc/apt/sources.list
-    echo "deb-src http://ppa.launchpad.net/ubuntugis/ppa/ubuntu xenial main" >> /etc/apt/sources.list
-
-    add-apt-repository ppa:ubuntugis/ppa -y
-    apt-get update
-
-    apt-get install -y qgis qgis-server python-qgis
-
+    apt-get install -y unzip zip
     apt-get install -y apache2 libapache2-mod-fcgid
 
-    mkdir -p /depot 
-    mkdir -p /scratch
 
+#    ## add cesium
+#    apt-get install -y nodejs npm
+#    ##cd /var/www/html
+#    ##wget https://github.com/AnalyticalGraphicsInc/cesium/releases/download/1.56.1/Cesium-1.56.1.zip
+#    ###unzip Cesium-1.56.1.zip
+#
+#
+#    ## add ubuntugis repo
+#    echo >> /etc/apt/sources.list
+#    echo "## ubuntuGIS" >> /etc/apt/sources.list
+#    echo "## https://launchpad.net/~ubuntugis/+archive/ubuntu/ppa" >> /etc/apt/sources.list
+#    echo "deb http://ppa.launchpad.net/ubuntugis/ppa/ubuntu xenial main" >> /etc/apt/sources.list
+#    echo "deb-src http://ppa.launchpad.net/ubuntugis/ppa/ubuntu xenial main" >> /etc/apt/sources.list
+#
+#    add-apt-repository ppa:ubuntugis/ppa -y
+#    apt-get update
+#
+#    apt-get install -y qgis qgis-server python-qgis
+#
