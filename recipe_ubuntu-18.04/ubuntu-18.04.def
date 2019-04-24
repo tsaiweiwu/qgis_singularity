@@ -1,0 +1,62 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+
+%setup
+    echo ${PWD}
+
+    mkdir -p /depot 
+    mkdir -p /scratch
+
+%files
+    ../Cesium-1.56.1.zip /
+
+%post
+
+    apt-get install -y apt-transport-https
+    apt-get -y update
+    apt-get -y upgrade
+    apt-get install -y software-properties-common sudo
+    apt-get install -y g++
+    apt-get install -y vim git wget cmake
+    apt-get install -y unzip zip curl
+
+    ## https://github.com/qgis/QGIS-Website/issues/462
+
+#    ## apache2 config
+#    ## https://www.sylabs.io/2018/09/new-containers-apache-mariadb-blender/
+#    apt-get install -y apache2 libapache2-mod-fcgid
+#    echo >> /etc/apache2/apache2.conf
+#    echo "ServerName localhost" >> /etc/apache2/apache2.conf
+#
+#    # changes the port we are listening on to 8080 instead of 80
+#    sed -ie 's/^\(Listen\).*/\1 8080/' /etc/apache2/ports.conf
+
+    ## add cesium
+    curl -sL https://deb.nodesource.com/setup_8.x | bash -    
+    apt-get install -y nodejs    
+    unzip -o /Cesium-1.56.1.zip -d /var/www/html
+    cd /var/www/html
+    npm install
+    mkdir -p /var/www/html/htdocs
+    
+
+    ## add GIS repo
+    echo >> /etc/apt/sources.list
+    echo "## GIS repo" >> /etc/apt/sources.list
+    echo "## https://qgis.org/en/site/forusers/alldownloads.html#linux" >> /etc/apt/sources.list
+    echo "## https://gis.stackexchange.com/questions/133033/installing-latest-qgis-version-on-ubuntu" >> /etc/apt/sources.list
+    echo "deb https://qgis.org/ubuntu-ltr bionic main" >> /etc/apt/sources.list
+    echo "deb-src https://qgis.org/ubuntu-ltr bionic main" >> /etc/apt/sources.list
+
+    wget -O - http://qgis.org/downloads/qgis-2017.gpg.key | gpg --import
+    gpg --fingerprint CAEB3DC3BDF7FB45
+    gpg --export --armor CAEB3DC3BDF7FB45 | sudo apt-key add -
+
+    apt-get update
+    2 105 | apt-get install -y qgis
+    apt-get install -y qgis-server python-qgis
+
+
+
+
